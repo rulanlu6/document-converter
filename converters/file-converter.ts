@@ -1,20 +1,31 @@
-import { conversionFromString } from "./string-converter";
-import { conversionFromJSON } from "./json-conveter";
-import { conversionFromXML } from "./xml-conveter";
+import { StringConverter } from "./string-converter";
+import { JSONConverter } from "./json-conveter";
+import { XMLConverter } from "./xml-conveter";
 
 export class FileConverter {
   // General conversion method
-  async convert(input: string, from: string, to: string): Promise<string> {
+  async convert(
+    input: Express.Multer.File,
+    from: string,
+    to: string
+  ): Promise<string> {
+    let converter;
+    // Determine which class to instantiate based on 'from' type
     switch (from) {
-      case "string":
-        return conversionFromString(input, to);
-      case "json":
-        return conversionFromJSON(input, to);
-      case "xml":
-        return conversionFromXML(input, to);
+      case "text/plain":
+        converter = new StringConverter();
+        break;
+      case "application/json":
+        converter = new JSONConverter();
+        break;
+      case "application/xml":
+        converter = new XMLConverter();
+        break;
       // More cases can be added for other format conversions
       default:
         throw new Error(`Conversion from ${from} to ${to} is not supported.`);
     }
+
+    return converter.convert(input, to);
   }
 }
