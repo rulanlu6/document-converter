@@ -1,24 +1,27 @@
 {
   "name": "document-converter",
   "version": "1.0.0",
-  "description": "An API for converting documents between formats like JSON, XML, and string. ",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "build": "tsc",
-    "test": "echo \"No test specified\""
+    "build": "npx tsc",
+    "start:backend": "node dist/server.js",
+    "start:frontend": "cd client && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Rulan Lu",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/body-parser": "^1.19.5",
-    "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "body-parser": "^1.20.3",
-    "express": "^4.21.1",
-    "xml2js": "^0.6.2"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
   }
 }

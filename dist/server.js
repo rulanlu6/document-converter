@@ -4,12 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
-const port = 3001;
-// Define a route for the root path ('/')
+const port = 8000;
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.get("/", (req, res) => {
-    // Send a response to the client
-    res.send("Hello, TypeScript + Node.js + Express!");
+    res.send("Hello!");
 });
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
