@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stringToObjectParser = void 0;
-const stringToObjectParser = (inputString, lineSeparator, elementSeparator) => {
+exports.objectToXML = exports.stringToObject = void 0;
+const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     inputString = inputString.replace(/(\r\n|\n|\r)/gm, ""); // Remove line breaks
     const lines = inputString.split(lineSeparator);
     const result = {};
@@ -25,4 +25,29 @@ const stringToObjectParser = (inputString, lineSeparator, elementSeparator) => {
     });
     return result;
 };
-exports.stringToObjectParser = stringToObjectParser;
+exports.stringToObject = stringToObject;
+const objectToXML = (object, depth = 0, rootKey = "") => {
+    const indent = "  ".repeat(depth); // Two spaces per depth level
+    if (Array.isArray(object)) {
+        return object
+            .map((value) => {
+            return `${indent}<${rootKey}>\n${(0, exports.objectToXML)(value, depth + 1, rootKey)}\n${indent}</${rootKey}>`;
+        })
+            .join("\n");
+    }
+    if (typeof object === "object") {
+        return Object.entries(object)
+            .map(([key, value]) => {
+            if (typeof value === "string") {
+                return `${indent}<${key}>${value}</${key}>`; // If value is string, return it directly
+            }
+            else {
+                // Recursively handle nested objects or arrays
+                return (0, exports.objectToXML)(value, depth, key);
+            }
+        })
+            .join("\n");
+    }
+    return `${indent}${String(object)}`;
+};
+exports.objectToXML = objectToXML;

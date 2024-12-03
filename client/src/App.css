@@ -31,15 +31,19 @@
 .root {
   margin: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+}
+
+.upload-container,
+.result-container {
+  width: 50%;
 }
 
 .file-container,
 .input-container,
-.button-container,
-.result-container {
-  width: 750px;
+.button-container {
+  width: 100%;
 }
 
 .file-container {
@@ -87,6 +91,14 @@ button[disabled] {
 .upload-button {
   margin-top: 20px;
   width: 100%;
+}
+
+.result-text {
+  height: 500px;
+  margin: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  background-color: #eeeeee;
 }
 
 @keyframes App-logo-spin {

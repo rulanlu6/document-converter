@@ -1,5 +1,5 @@
 import { BaseConverter } from "./base-converter";
-import { stringToObjectParser } from "./helper";
+import { stringToObject, objectToXML } from "./helper";
 
 export class StringConverter extends BaseConverter {
   // Method to convert String to JSON
@@ -11,11 +11,7 @@ export class StringConverter extends BaseConverter {
     let result: string | undefined;
     try {
       const data = input.buffer.toString("utf8");
-      const object = stringToObjectParser(
-        data,
-        lineSeparator,
-        elementSeparator
-      );
+      const object = stringToObject(data, lineSeparator, elementSeparator);
       result = JSON.stringify(object, null, 2);
     } catch (err) {
       console.log(err);
@@ -29,8 +25,16 @@ export class StringConverter extends BaseConverter {
     lineSeparator: string,
     elementSeparator: string
   ): Promise<string> {
-    // Placeholder logic for converting string to XML
-    return `string to xml`;
+    let result: string | undefined;
+
+    try {
+      const data = input.buffer.toString("utf8");
+      const object = stringToObject(data, lineSeparator, elementSeparator);
+      result = `<root>\n${objectToXML(object, 1)}\n</root>`;
+    } catch (err) {
+      console.log(err);
+    }
+    return result || "";
   }
 
   // Main conversion method, uses the appropriate method based on the 'to' type

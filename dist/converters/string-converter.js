@@ -19,7 +19,7 @@ class StringConverter extends base_converter_1.BaseConverter {
             let result;
             try {
                 const data = input.buffer.toString("utf8");
-                const object = (0, helper_1.stringToObjectParser)(data, lineSeparator, elementSeparator);
+                const object = (0, helper_1.stringToObject)(data, lineSeparator, elementSeparator);
                 result = JSON.stringify(object, null, 2);
             }
             catch (err) {
@@ -31,8 +31,16 @@ class StringConverter extends base_converter_1.BaseConverter {
     // Method to convert String to XML
     convertStringToXML(input, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Placeholder logic for converting string to XML
-            return `string to xml`;
+            let result;
+            try {
+                const data = input.buffer.toString("utf8");
+                const object = (0, helper_1.stringToObject)(data, lineSeparator, elementSeparator);
+                result = `<root>\n${(0, helper_1.objectToXML)(object, 1)}\n</root>`;
+            }
+            catch (err) {
+                console.log(err);
+            }
+            return result || "";
         });
     }
     // Main conversion method, uses the appropriate method based on the 'to' type
