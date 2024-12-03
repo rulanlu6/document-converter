@@ -9,6 +9,7 @@ const App = () => {
   const [convertedData, setConvertedData] = useState<string>("");
   const [lineSeparator, setLineSeparator] = useState<string>("");
   const [elementSeparator, setElementSeparator] = useState<string>("");
+  const [downloadLink, setDownloadLink] = useState<string>("");
 
   // Handle form submission
   const handleSubmit = async () => {
@@ -21,19 +22,36 @@ const App = () => {
     formData.append("lineSeparator", lineSeparator);
     formData.append("elementSeparator", elementSeparator);
 
-    console.log(formData);
     try {
       axios
         .post("/convert", formData, {
           headers: { "Content-Type": "multipart/form-data" },
+          // responseType: "blob",
         })
         .then((response) => {
-          console.log(response);
+          console.log("response", response);
           setConvertedData(response.data.result); // Assuming the response contains the converted data
           // Reset everything here
+          // const blob = new Blob([response.data]);
+
+          // const url = window.URL.createObjectURL(blob);
+          // setDownloadLink(url);
         });
     } catch (error) {
       console.error("Error converting file:", error);
+    }
+  };
+
+  const triggerDownload = () => {
+    if (downloadLink) {
+      // Trigger the download using the Blob URL
+      const link = document.createElement("a");
+      link.href = downloadLink;
+      link.download = `output.${conversionType}`; // Set the filename here
+      link.click();
+
+      // Optional: Clean up the Blob URL after the download starts
+      URL.revokeObjectURL(downloadLink);
     }
   };
 
@@ -62,7 +80,7 @@ const App = () => {
               onChange={(e) => setConversionType(e.target.value)}
             >
               <option value="json">JSON</option>
-              <option value="string">String</option>
+              <option value="txt">String</option>
               <option value="xml">XML</option>
             </select>
           </div>
@@ -107,6 +125,7 @@ const App = () => {
           </button>
         </div>
       </div>
+      {/* {downloadLink && <button onClick={triggerDownload}>Download File</button>} */}
       <div className="result-container">
         {/* Display converted data */}
         <pre className="result-text">{convertedData}</pre>

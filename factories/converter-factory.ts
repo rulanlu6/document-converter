@@ -4,7 +4,7 @@ import { XMLConverter } from "../converters/xml-conveter";
 
 export class ConverterFactory {
   // General conversion method
-  async convert(
+  async getConverter(
     input: Express.Multer.File,
     from: string,
     to: string,
@@ -21,6 +21,7 @@ export class ConverterFactory {
         converter = new JSONConverter();
         break;
       case "application/xml":
+      case "text/xml":
         converter = new XMLConverter();
         break;
       // More cases can be added for other format conversions

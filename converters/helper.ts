@@ -59,7 +59,6 @@ export const objectToXML = (
         if (typeof value === "string") {
           return `${indent}<${key}>${value}</${key}>`; // If value is string, return it directly
         } else {
-          // Recursively handle nested objects or arrays
           return objectToXML(value, depth, key);
         }
       })
@@ -67,4 +66,20 @@ export const objectToXML = (
   }
 
   return `${indent}${String(object)}`;
+};
+
+export const wrapObjectInArray = (obj: any): any => {
+  // Iterate over each top-level key in the object
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+
+      // If the value is not already an array, wrap it in an array
+      if (!Array.isArray(value)) {
+        obj[key] = [value];
+      }
+    }
+  }
+
+  return obj;
 };

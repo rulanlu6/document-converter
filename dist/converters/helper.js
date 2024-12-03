@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.objectToXML = exports.stringToObject = void 0;
+exports.wrapObjectInArray = exports.objectToXML = exports.stringToObject = void 0;
 const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     inputString = inputString.replace(/(\r\n|\n|\r)/gm, ""); // Remove line breaks
     const lines = inputString.split(lineSeparator);
@@ -42,7 +42,6 @@ const objectToXML = (object, depth = 0, rootKey = "") => {
                 return `${indent}<${key}>${value}</${key}>`; // If value is string, return it directly
             }
             else {
-                // Recursively handle nested objects or arrays
                 return (0, exports.objectToXML)(value, depth, key);
             }
         })
@@ -51,3 +50,17 @@ const objectToXML = (object, depth = 0, rootKey = "") => {
     return `${indent}${String(object)}`;
 };
 exports.objectToXML = objectToXML;
+const wrapObjectInArray = (obj) => {
+    // Iterate over each top-level key in the object
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            const value = obj[key];
+            // If the value is not already an array, wrap it in an array
+            if (!Array.isArray(value)) {
+                obj[key] = [value];
+            }
+        }
+    }
+    return obj;
+};
+exports.wrapObjectInArray = wrapObjectInArray;

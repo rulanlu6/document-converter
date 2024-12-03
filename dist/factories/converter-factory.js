@@ -15,7 +15,7 @@ const json_conveter_1 = require("../converters/json-conveter");
 const xml_conveter_1 = require("../converters/xml-conveter");
 class ConverterFactory {
     // General conversion method
-    convert(input, from, to, lineSeparator, elementSeparator) {
+    getConverter(input, from, to, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
             let converter;
             // Determine which class to instantiate based on 'from' type
@@ -27,6 +27,7 @@ class ConverterFactory {
                     converter = new json_conveter_1.JSONConverter();
                     break;
                 case "application/xml":
+                case "text/xml":
                     converter = new xml_conveter_1.XMLConverter();
                     break;
                 // More cases can be added for other format conversions

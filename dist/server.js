@@ -34,10 +34,21 @@ app.post("/convert", upload.single("input"), (req, res) => __awaiter(void 0, voi
     }
     try {
         // Send file to converter
-        const result = yield converterFactory.convert(req.file, from, to, lineSeparator, elementSeparator);
+        const result = yield converterFactory.getConverter(req.file, from, to, lineSeparator, elementSeparator);
+        // Decide if I want to send over full file
+        // const outputFileName = `output.${to}`;
+        // const filePath = path.join(__dirname, "../files", outputFileName);
+        // fs.writeFileSync(filePath, result);
+        // console.log("File written, preparing to send...");
+        // res.sendFile(filePath, (err) => {
+        //   if (err) {
+        //     res.status(500).json({ error: "Failed to send the file" });
+        //   }
+        //   // Delete the file after sending it
+        //   fs.unlinkSync(filePath);
+        // });
         res.status(200).json({
             message: `File uploaded successfully from ${from} to ${to}`,
-            filename: req.file.filename,
             result: result,
         });
     }

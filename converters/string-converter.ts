@@ -8,15 +8,16 @@ export class StringConverter extends BaseConverter {
     lineSeparator: string,
     elementSeparator: string
   ): Promise<string> {
-    let result: string | undefined;
     try {
       const data = input.buffer.toString("utf8");
       const object = stringToObject(data, lineSeparator, elementSeparator);
-      result = JSON.stringify(object, null, 2);
+      const json = JSON.stringify(object, null, 2);
+
+      return json;
     } catch (err) {
-      console.log(err);
+      console.error("Error converting string to JSON:", err);
+      throw new Error("Invalid string format");
     }
-    return result || "";
   }
 
   // Method to convert String to XML
@@ -25,16 +26,16 @@ export class StringConverter extends BaseConverter {
     lineSeparator: string,
     elementSeparator: string
   ): Promise<string> {
-    let result: string | undefined;
-
     try {
       const data = input.buffer.toString("utf8");
       const object = stringToObject(data, lineSeparator, elementSeparator);
-      result = `<root>\n${objectToXML(object, 1)}\n</root>`;
+      const xml = `<root>\n${objectToXML(object, 1)}\n</root>`;
+
+      return xml;
     } catch (err) {
-      console.log(err);
+      console.error("Error converting string to XML:", err);
+      throw new Error("Invalid string format");
     }
-    return result || "";
   }
 
   // Main conversion method, uses the appropriate method based on the 'to' type
