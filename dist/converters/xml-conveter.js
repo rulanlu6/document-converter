@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XMLConverter = void 0;
-class XMLConverter {
+const base_converter_1 = require("./base-converter");
+class XMLConverter extends base_converter_1.BaseConverter {
     // Method to convert XML to String
     convertXMLToString(input) {
         return __awaiter(this, void 0, void 0, function* () {

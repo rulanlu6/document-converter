@@ -3,7 +3,7 @@ import cors from "cors";
 import multer from "multer";
 import bodyParser from "body-parser";
 
-import { FileConverter } from "./converters/file-converter";
+import { ConverterFactory } from "./factories/converter-factory";
 
 const app = express();
 const port: number = 8000;
@@ -13,14 +13,14 @@ app.use(bodyParser.json());
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-const fileConverter = new FileConverter();
+const converterFactory = new ConverterFactory();
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello!");
 });
 
 app.post(
-  "/api/convert",
+  "/convert",
   upload.single("input"),
   async (req: Request, res: Response) => {
     const {
@@ -41,7 +41,7 @@ app.post(
 
     try {
       // Send file to converter
-      const result = await fileConverter.convert(
+      const result = await converterFactory.convert(
         req.file,
         from,
         to,

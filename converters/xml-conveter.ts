@@ -1,4 +1,5 @@
-export class XMLConverter {
+import { BaseConverter } from "./base-converter";
+export class XMLConverter extends BaseConverter {
   // Method to convert XML to String
   async convertXMLToString(input: Express.Multer.File): Promise<string> {
     // Placeholder logic for converting XML to String

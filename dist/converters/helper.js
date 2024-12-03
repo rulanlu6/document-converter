@@ -11,15 +11,17 @@ const stringToObjectParser = (inputString, lineSeparator, elementSeparator) => {
             .filter((line) => line.trim() !== "");
         const key = parts[0];
         const values = parts.slice(1);
-        // If the key doesn't exist in the result object, initialize it as an empty array
-        if (!result[key]) {
-            result[key] = [];
+        if (key) {
+            // If the key doesn't exist in the result object, initialize it as an empty array
+            if (!result[key]) {
+                result[key] = [];
+            }
+            const obj = {};
+            values.forEach((value, index) => {
+                obj[`${key}${index + 1}`] = value;
+            });
+            result[key].push(obj);
         }
-        const obj = {};
-        values.forEach((value, index) => {
-            obj[`${key}${index + 1}`] = value;
-        });
-        result[key].push(obj);
     });
     return result;
 };

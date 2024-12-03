@@ -1,6 +1,7 @@
+import { BaseConverter } from "./base-converter";
 import { stringToObjectParser } from "./helper";
 
-export class StringConverter {
+export class StringConverter extends BaseConverter {
   // Method to convert String to JSON
   async convertStringToJSON(
     input: Express.Multer.File,

@@ -10,12 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringConverter = void 0;
+const base_converter_1 = require("./base-converter");
 const helper_1 = require("./helper");
-class StringConverter {
+class StringConverter extends base_converter_1.BaseConverter {
     // Method to convert String to JSON
     convertStringToJSON(input, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Placeholder logic for converting string to JSON
             let result;
             try {
                 const data = input.buffer.toString("utf8");
@@ -25,7 +25,6 @@ class StringConverter {
             catch (err) {
                 console.log(err);
             }
-            // console.log("input", input);
             return result || "";
         });
     }

@@ -1,4 +1,5 @@
-export class JSONConverter {
+import { BaseConverter } from "./base-converter";
+export class JSONConverter extends BaseConverter {
   // Method to convert JSON to String
   async convertJSONToString(input: Express.Multer.File): Promise<string> {
     // Placeholder logic for converting JSON to String

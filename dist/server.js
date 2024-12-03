@@ -16,25 +16,25 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const multer_1 = __importDefault(require("multer"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const file_converter_1 = require("./converters/file-converter");
+const converter_factory_1 = require("./factories/converter-factory");
 const app = (0, express_1.default)();
 const port = 8000;
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 const storage = multer_1.default.memoryStorage();
 const upload = (0, multer_1.default)({ storage });
-const fileConverter = new file_converter_1.FileConverter();
+const converterFactory = new converter_factory_1.ConverterFactory();
 app.get("/", (req, res) => {
     res.send("Hello!");
 });
-app.post("/api/convert", upload.single("input"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/convert", upload.single("input"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { from, to, lineSeparator, elementSeparator, } = req.body;
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
         // Send file to converter
-        const result = yield fileConverter.convert(req.file, from, to, lineSeparator, elementSeparator);
+        const result = yield converterFactory.convert(req.file, from, to, lineSeparator, elementSeparator);
         res.status(200).json({
             message: `File uploaded successfully from ${from} to ${to}`,
             filename: req.file.filename,

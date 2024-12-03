@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JSONConverter = void 0;
-class JSONConverter {
+const base_converter_1 = require("./base-converter");
+class JSONConverter extends base_converter_1.BaseConverter {
     // Method to convert JSON to String
     convertJSONToString(input) {
         return __awaiter(this, void 0, void 0, function* () {

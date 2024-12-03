@@ -1,8 +1,8 @@
-import { StringConverter } from "./string-converter";
-import { JSONConverter } from "./json-conveter";
-import { XMLConverter } from "./xml-conveter";
+import { StringConverter } from "../converters/string-converter";
+import { JSONConverter } from "../converters/json-conveter";
+import { XMLConverter } from "../converters/xml-conveter";
 
-export class FileConverter {
+export class ConverterFactory {
   // General conversion method
   async convert(
     input: Express.Multer.File,

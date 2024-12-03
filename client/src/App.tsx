@@ -24,7 +24,7 @@ const App = () => {
     console.log(formData);
     try {
       axios
-        .post("/api/convert", formData, {
+        .post("/convert", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
