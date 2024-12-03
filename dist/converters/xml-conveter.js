@@ -43,9 +43,9 @@ class XMLConverter extends base_converter_1.BaseConverter {
     convert(input, to, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
             switch (to) {
-                case "txt":
+                case "text/plain":
                     return this.convertXMLToString(input); // Call the string conversion method
-                case "json":
+                case "application/json":
                     return this.convertXMLToJSON(input); // Call the JSON conversion method
                 default:
                     throw new Error(`Conversion from XML to ${to} is not supported.`);

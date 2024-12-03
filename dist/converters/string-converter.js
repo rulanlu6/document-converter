@@ -47,9 +47,9 @@ class StringConverter extends base_converter_1.BaseConverter {
     convert(input, to, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
             switch (to) {
-                case "json":
+                case "application/json":
                     return this.convertStringToJSON(input, lineSeparator, elementSeparator); // Call the JSON conversion method
-                case "xml":
+                case "application/xml":
                     return this.convertStringToXML(input, lineSeparator, elementSeparator); // Call the XML conversion method
                 default:
                     throw new Error(`Conversion from String to ${to} is not supported.`);

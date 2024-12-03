@@ -46,9 +46,9 @@ export class StringConverter extends BaseConverter {
     elementSeparator: string
   ): Promise<string> {
     switch (to) {
-      case "json":
+      case "application/json":
         return this.convertStringToJSON(input, lineSeparator, elementSeparator); // Call the JSON conversion method
-      case "xml":
+      case "application/xml":
         return this.convertStringToXML(input, lineSeparator, elementSeparator); // Call the XML conversion method
       default:
         throw new Error(`Conversion from String to ${to} is not supported.`);

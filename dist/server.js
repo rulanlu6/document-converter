@@ -47,6 +47,7 @@ app.post("/convert", upload.single("input"), (req, res) => __awaiter(void 0, voi
         //   // Delete the file after sending it
         //   fs.unlinkSync(filePath);
         // });
+        console.log(result);
         res.status(200).json({
             message: `File uploaded successfully from ${from} to ${to}`,
             result: result,

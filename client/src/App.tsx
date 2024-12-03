@@ -5,7 +5,8 @@ import "./App.css";
 const App = () => {
   const [message, setMessage] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
-  const [conversionType, setConversionType] = useState<string>("json");
+  const [conversionType, setConversionType] =
+    useState<string>("application/json");
   const [convertedData, setConvertedData] = useState<string>("");
   const [lineSeparator, setLineSeparator] = useState<string>("");
   const [elementSeparator, setElementSeparator] = useState<string>("");
@@ -26,16 +27,17 @@ const App = () => {
       axios
         .post("/convert", formData, {
           headers: { "Content-Type": "multipart/form-data" },
-          // responseType: "blob",
         })
         .then((response) => {
           console.log("response", response);
           setConvertedData(response.data.result); // Assuming the response contains the converted data
           // Reset everything here
-          // const blob = new Blob([response.data]);
+          const blob = new Blob([response.data.result], {
+            type: conversionType,
+          });
 
-          // const url = window.URL.createObjectURL(blob);
-          // setDownloadLink(url);
+          const url = URL.createObjectURL(blob);
+          setDownloadLink(url);
         });
     } catch (error) {
       console.error("Error converting file:", error);
@@ -43,16 +45,13 @@ const App = () => {
   };
 
   const triggerDownload = () => {
-    if (downloadLink) {
-      // Trigger the download using the Blob URL
-      const link = document.createElement("a");
-      link.href = downloadLink;
-      link.download = `output.${conversionType}`; // Set the filename here
-      link.click();
+    // Trigger the download using the Blob URL
+    const link = document.createElement("a");
+    link.href = downloadLink;
+    link.download = "output";
+    link.click();
 
-      // Optional: Clean up the Blob URL after the download starts
-      URL.revokeObjectURL(downloadLink);
-    }
+    URL.revokeObjectURL(downloadLink);
   };
 
   return (
@@ -79,9 +78,9 @@ const App = () => {
               value={conversionType}
               onChange={(e) => setConversionType(e.target.value)}
             >
-              <option value="json">JSON</option>
-              <option value="txt">String</option>
-              <option value="xml">XML</option>
+              <option value="application/json">JSON</option>
+              <option value="text/plain">String</option>
+              <option value="application/xml">XML</option>
             </select>
           </div>
         </div>
@@ -125,7 +124,7 @@ const App = () => {
           </button>
         </div>
       </div>
-      {/* {downloadLink && <button onClick={triggerDownload}>Download File</button>} */}
+      {downloadLink && <button onClick={triggerDownload}>Download File</button>}
       <div className="result-container">
         {/* Display converted data */}
         <pre className="result-text">{convertedData}</pre>

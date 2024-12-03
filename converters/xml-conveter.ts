@@ -16,7 +16,7 @@ export class XMLConverter extends BaseConverter {
         explicitArray: false,
       });
 
-      const root = Object.keys(object)[0]; // Don't include root tag
+      const root = Object.keys(object)[0]; // Remove the root tag
       let json = wrapObjectInArray(object[root]);
 
       return JSON.stringify(json, null, 2);
@@ -34,9 +34,9 @@ export class XMLConverter extends BaseConverter {
     elementSeparator: string
   ): Promise<string> {
     switch (to) {
-      case "txt":
+      case "text/plain":
         return this.convertXMLToString(input); // Call the string conversion method
-      case "json":
+      case "application/json":
         return this.convertXMLToJSON(input); // Call the JSON conversion method
       default:
         throw new Error(`Conversion from XML to ${to} is not supported.`);
