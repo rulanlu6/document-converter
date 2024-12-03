@@ -7,7 +7,9 @@ export class FileConverter {
   async convert(
     input: Express.Multer.File,
     from: string,
-    to: string
+    to: string,
+    lineSeparator: string,
+    elementSeparator: string
   ): Promise<string> {
     let converter;
     // Determine which class to instantiate based on 'from' type
@@ -26,6 +28,6 @@ export class FileConverter {
         throw new Error(`Conversion from ${from} to ${to} is not supported.`);
     }
 
-    return converter.convert(input, to);
+    return converter.convert(input, to, lineSeparator, elementSeparator);
   }
 }

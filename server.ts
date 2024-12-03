@@ -23,7 +23,17 @@ app.post(
   "/api/convert",
   upload.single("input"),
   async (req: Request, res: Response) => {
-    const { from, to }: { from: string; to: string } = req.body;
+    const {
+      from,
+      to,
+      lineSeparator,
+      elementSeparator,
+    }: {
+      from: string;
+      to: string;
+      lineSeparator: string;
+      elementSeparator: string;
+    } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -31,7 +41,13 @@ app.post(
 
     try {
       // Send file to converter
-      const result = await fileConverter.convert(req.file, from, to);
+      const result = await fileConverter.convert(
+        req.file,
+        from,
+        to,
+        lineSeparator,
+        elementSeparator
+      );
 
       res.status(200).json({
         message: `File uploaded successfully from ${from} to ${to}`,

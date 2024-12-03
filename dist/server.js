@@ -28,13 +28,13 @@ app.get("/", (req, res) => {
     res.send("Hello!");
 });
 app.post("/api/convert", upload.single("input"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { from, to } = req.body;
+    const { from, to, lineSeparator, elementSeparator, } = req.body;
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
-        // Await the result of the conversion since it's an async function
-        const result = yield fileConverter.convert(req.file, from, to);
+        // Send file to converter
+        const result = yield fileConverter.convert(req.file, from, to, lineSeparator, elementSeparator);
         res.status(200).json({
             message: `File uploaded successfully from ${from} to ${to}`,
             filename: req.file.filename,

@@ -9,16 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.conversionFromXML = conversionFromXML;
-function conversionFromXML(input, to) {
-    return __awaiter(this, void 0, void 0, function* () {
-        switch (to) {
-            case "json":
-                return `xml to json`;
-            case "string":
-                return `xml to string`;
-            default:
-                throw new Error(`Conversion from XML to ${to} is not supported.`);
-        }
-    });
+exports.XMLConverter = void 0;
+class XMLConverter {
+    // Method to convert XML to String
+    convertXMLToString(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Placeholder logic for converting XML to String
+            return `xml to string`;
+        });
+    }
+    // Method to convert XML to JSON
+    convertXMLToJSON(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Placeholder logic for converting XML to JSON
+            return `xml to json`;
+        });
+    }
+    // Main conversion method, uses the appropriate method based on the 'to' type
+    convert(input, to, lineSeparator, elementSeparator) {
+        return __awaiter(this, void 0, void 0, function* () {
+            switch (to) {
+                case "string":
+                    return this.convertXMLToString(input); // Call the string conversion method
+                case "json":
+                    return this.convertXMLToJSON(input); // Call the JSON conversion method
+                default:
+                    throw new Error(`Conversion from XML to ${to} is not supported.`);
+            }
+        });
+    }
 }
+exports.XMLConverter = XMLConverter;

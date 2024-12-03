@@ -15,19 +15,25 @@ const json_conveter_1 = require("./json-conveter");
 const xml_conveter_1 = require("./xml-conveter");
 class FileConverter {
     // General conversion method
-    convert(input, from, to) {
+    convert(input, from, to, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
+            let converter;
+            // Determine which class to instantiate based on 'from' type
             switch (from) {
                 case "text/plain":
-                    return (0, string_converter_1.conversionFromString)(input, to);
+                    converter = new string_converter_1.StringConverter();
+                    break;
                 case "application/json":
-                    return (0, json_conveter_1.conversionFromJSON)(input, to);
+                    converter = new json_conveter_1.JSONConverter();
+                    break;
                 case "application/xml":
-                    return (0, xml_conveter_1.conversionFromXML)(input, to);
+                    converter = new xml_conveter_1.XMLConverter();
+                    break;
                 // More cases can be added for other format conversions
                 default:
                     throw new Error(`Conversion from ${from} to ${to} is not supported.`);
             }
+            return converter.convert(input, to, lineSeparator, elementSeparator);
         });
     }
 }

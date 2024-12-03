@@ -12,7 +12,12 @@ export class XMLConverter {
   }
 
   // Main conversion method, uses the appropriate method based on the 'to' type
-  async convert(input: Express.Multer.File, to: string): Promise<string> {
+  async convert(
+    input: Express.Multer.File,
+    to: string,
+    lineSeparator: string,
+    elementSeparator: string
+  ): Promise<string> {
     switch (to) {
       case "string":
         return this.convertXMLToString(input); // Call the string conversion method
