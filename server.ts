@@ -36,11 +36,11 @@ app.post(
     } = req.body;
 
     if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
+      return res.status(400).json({ error: "No document uploaded" });
     }
 
     try {
-      // Send file to converter
+      // Send document to converter
       const result = await converterFactory.getConverter(
         req.file,
         from,

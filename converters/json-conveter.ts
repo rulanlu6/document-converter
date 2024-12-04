@@ -1,4 +1,5 @@
 import { BaseConverter } from "./base-converter";
+import { jsonInsertSeparators } from "./helper";
 import xml2js from "xml2js";
 export class JSONConverter extends BaseConverter {
   // Method to convert JSON to String
@@ -7,8 +8,16 @@ export class JSONConverter extends BaseConverter {
     lineSeparator: string,
     elementSeparator: string
   ): Promise<string> {
-    // Placeholder logic for converting JSON to String
-    return `json to string`;
+    try {
+      const data = JSON.parse(input.buffer.toString("utf8"));
+
+      let string = jsonInsertSeparators(data, lineSeparator, elementSeparator);
+
+      return string;
+    } catch (err) {
+      console.error("Error converting JSON to String:", err);
+      throw new Error("Invalid JSON format");
+    }
   }
 
   // Method to convert JSON to XML

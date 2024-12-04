@@ -4,7 +4,7 @@ import "./App.css";
 
 const App = () => {
   const [message, setMessage] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null);
+  const [document, setDocument] = useState<File | null>(null);
   const [conversionType, setConversionType] = useState<string>("");
   const [convertedData, setConvertedData] = useState<string>("");
   const [lineSeparator, setLineSeparator] = useState<string>("");
@@ -12,25 +12,25 @@ const App = () => {
   const [downloadLink, setDownloadLink] = useState<string>("");
 
   useEffect(() => {
-    if (file && conversionType) {
+    if (document && conversionType) {
       if (
-        file.type === conversionType ||
-        (file.type === "text/xml" && conversionType === "application/xml")
+        document.type === conversionType ||
+        (document.type === "text/xml" && conversionType === "application/xml")
       )
-        setMessage(`This file is already in ${file.type} format!`);
+        setMessage(`This document is already in ${document.type} format!`);
       else {
         setMessage("");
       }
     }
-  }, [file, conversionType]);
+  }, [document, conversionType]);
 
   // Handle form submission
   const handleSubmit = async () => {
-    if (!file) return;
+    if (!document) return;
 
     const formData = new FormData();
-    formData.append("input", file);
-    formData.append("from", file.type);
+    formData.append("input", document);
+    formData.append("from", document.type);
     formData.append("to", conversionType);
     formData.append("lineSeparator", lineSeparator);
     formData.append("elementSeparator", elementSeparator);
@@ -41,8 +41,7 @@ const App = () => {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
-          console.log("response", response);
-          setConvertedData(response.data.result); // Assuming the response contains the converted data
+          setConvertedData(response.data.result);
           const blob = new Blob([response.data.result], {
             type: conversionType,
           });
@@ -56,13 +55,13 @@ const App = () => {
           setElementSeparator("");
         });
     } catch (error) {
-      console.error("Error converting file:", error);
+      console.error("Error converting document:", error);
     }
   };
 
   const triggerDownload = () => {
     // Trigger the download using the Blob URL
-    const link = document.createElement("a");
+    const link = window.document.createElement("a");
     link.href = downloadLink;
     link.download = "output";
     link.click();
@@ -71,23 +70,24 @@ const App = () => {
   };
 
   const requireSeparators =
-    (file && (file.type === "text/plain" || conversionType === "text/plain")) ||
+    (document &&
+      (document.type === "text/plain" || conversionType === "text/plain")) ||
     false;
 
   return (
     <div className="root">
       <div className="upload-container">
-        <h1>File Conversion</h1>
+        <h1>Document Converter</h1>
         <p>Currently supports conversions between .txt, .json, and .xml</p>
 
-        <div className="file-container">
-          <h4>Upload file:</h4>
+        <div className="document-container">
+          <h4>Upload document:</h4>
           <input
             type="file"
             accept="text/plain,application/xml,application/json"
             onChange={(e) => {
               if (e.target.files) {
-                setFile(e.target.files[0]);
+                setDocument(e.target.files[0]);
               }
             }}
             required
@@ -146,7 +146,7 @@ const App = () => {
             onClick={handleSubmit}
             disabled={
               !conversionType ||
-              !file ||
+              !document ||
               (requireSeparators && (!lineSeparator || !elementSeparator))
             }
           >

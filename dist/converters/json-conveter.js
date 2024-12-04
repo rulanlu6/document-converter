@@ -14,13 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JSONConverter = void 0;
 const base_converter_1 = require("./base-converter");
+const helper_1 = require("./helper");
 const xml2js_1 = __importDefault(require("xml2js"));
 class JSONConverter extends base_converter_1.BaseConverter {
     // Method to convert JSON to String
     convertJSONToString(input, lineSeparator, elementSeparator) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Placeholder logic for converting JSON to String
-            return `json to string`;
+            try {
+                const data = JSON.parse(input.buffer.toString("utf8"));
+                let string = (0, helper_1.jsonInsertSeparators)(data, lineSeparator, elementSeparator);
+                return string;
+            }
+            catch (err) {
+                console.error("Error converting JSON to String:", err);
+                throw new Error("Invalid JSON format");
+            }
         });
     }
     // Method to convert JSON to XML

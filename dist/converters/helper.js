@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wrapObjectInArray = exports.objectToXML = exports.stringToObject = void 0;
+exports.jsonInsertSeparators = exports.wrapObjectInArray = exports.objectToXML = exports.stringToObject = void 0;
 const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     inputString = inputString.replace(/(\r\n|\n|\r)/gm, ""); // Remove line breaks
     const lines = inputString.split(lineSeparator);
@@ -64,3 +64,19 @@ const wrapObjectInArray = (obj) => {
     return obj;
 };
 exports.wrapObjectInArray = wrapObjectInArray;
+const jsonInsertSeparators = (json, lineSeparator, elementSeparator) => {
+    const lines = [];
+    for (const [key, value] of Object.entries(json)) {
+        // If the value is an array, process each object inside it as a line
+        if (Array.isArray(value)) {
+            value.forEach((item) => {
+                if (typeof item === "object" && item !== null) {
+                    const elements = Object.values(item).join(elementSeparator);
+                    lines.push(`${key}${elementSeparator}${elements}`);
+                }
+            });
+        }
+    }
+    return lines.join(lineSeparator);
+};
+exports.jsonInsertSeparators = jsonInsertSeparators;

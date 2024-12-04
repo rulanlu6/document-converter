@@ -29,7 +29,7 @@ class XMLConverter extends base_converter_1.BaseConverter {
                 const object = yield (0, xml2js_1.parseStringPromise)(xml, {
                     explicitArray: false,
                 });
-                const root = Object.keys(object)[0]; // Don't include root tag
+                const root = Object.keys(object)[0]; // Remove the root tag
                 let json = (0, helper_1.wrapObjectInArray)(object[root]);
                 return JSON.stringify(json, null, 2);
             }
