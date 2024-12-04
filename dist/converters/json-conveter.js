@@ -5,14 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JSONConverter = void 0;
 const base_converter_1 = require("./base-converter");
-const helper_1 = require("./helper");
+const objectToString_1 = require("../utils/objectToString");
 const xml2js_1 = __importDefault(require("xml2js"));
 class JSONConverter extends base_converter_1.BaseConverter {
     // Method to convert JSON to String
     async convertJSONToString(input, lineSeparator, elementSeparator) {
         try {
             const data = JSON.parse(input.buffer.toString("utf8"));
-            let string = (0, helper_1.objectInsertSeparators)(data, lineSeparator, elementSeparator);
+            let string = (0, objectToString_1.objectToString)(data, lineSeparator, elementSeparator);
             return string;
         }
         catch (err) {

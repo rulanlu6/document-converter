@@ -2,15 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XMLConverter = void 0;
 const base_converter_1 = require("./base-converter");
-const helper_1 = require("./helper");
+const xmlToObject_1 = require("../utils/xmlToObject");
+const objectToString_1 = require("../utils/objectToString");
+const wrapObjectInArray_1 = require("../utils/wrapObjectInArray");
 const xml2js_1 = require("xml2js");
 class XMLConverter extends base_converter_1.BaseConverter {
     // Method to convert XML to String
     async convertXMLToString(input, lineSeparator, elementSeparator) {
         try {
             const data = input.buffer.toString("utf8");
-            const object = (0, helper_1.xmlToObject)(data);
-            const string = (0, helper_1.objectInsertSeparators)(object, lineSeparator, elementSeparator);
+            const object = (0, xmlToObject_1.xmlToObject)(data);
+            const string = (0, objectToString_1.objectToString)(object, lineSeparator, elementSeparator);
             return string;
         }
         catch (err) {
@@ -26,7 +28,7 @@ class XMLConverter extends base_converter_1.BaseConverter {
                 explicitArray: false,
             });
             const root = Object.keys(object)[0]; // Remove the root tag
-            let result = (0, helper_1.wrapObjectInArray)(object[root]);
+            let result = (0, wrapObjectInArray_1.wrapObjectInArray)(object[root]);
             return JSON.stringify(result, null, 2);
         }
         catch (error) {

@@ -1,5 +1,5 @@
 import { BaseConverter } from "./base-converter";
-import { objectInsertSeparators } from "./helper";
+import { objectToString } from "../utils/objectToString";
 import xml2js from "xml2js";
 export class JSONConverter extends BaseConverter {
   // Method to convert JSON to String
@@ -11,11 +11,7 @@ export class JSONConverter extends BaseConverter {
     try {
       const data = JSON.parse(input.buffer.toString("utf8"));
 
-      let string = objectInsertSeparators(
-        data,
-        lineSeparator,
-        elementSeparator
-      );
+      let string = objectToString(data, lineSeparator, elementSeparator);
 
       return string;
     } catch (err) {

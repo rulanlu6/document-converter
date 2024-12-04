@@ -1,9 +1,7 @@
 import { BaseConverter } from "./base-converter";
-import {
-  wrapObjectInArray,
-  xmlToObject,
-  objectInsertSeparators,
-} from "./helper";
+import { xmlToObject } from "../utils/xmlToObject";
+import { objectToString } from "../utils/objectToString";
+import { wrapObjectInArray } from "../utils/wrapObjectInArray";
 import { parseStringPromise } from "xml2js";
 export class XMLConverter extends BaseConverter {
   // Method to convert XML to String
@@ -16,11 +14,7 @@ export class XMLConverter extends BaseConverter {
       const data = input.buffer.toString("utf8");
 
       const object = xmlToObject(data);
-      const string = objectInsertSeparators(
-        object,
-        lineSeparator,
-        elementSeparator
-      );
+      const string = objectToString(object, lineSeparator, elementSeparator);
 
       return string;
     } catch (err) {

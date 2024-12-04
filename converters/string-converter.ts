@@ -1,5 +1,6 @@
 import { BaseConverter } from "./base-converter";
-import { stringToObject, objectToXML } from "./helper";
+import { stringToObject } from "../utils/stringToObject";
+import { objectToXML } from "../utils/objectToXML";
 
 export class StringConverter extends BaseConverter {
   // Method to convert String to JSON
