@@ -50,9 +50,9 @@ export class XMLConverter extends BaseConverter {
   ): Promise<string> {
     switch (to) {
       case "text/plain":
-        return this.convertXMLToString(input, lineSeparator, elementSeparator); // Call the string conversion method
+        return this.convertXMLToString(input, lineSeparator, elementSeparator);
       case "application/json":
-        return this.convertXMLToJSON(input); // Call the JSON conversion method
+        return this.convertXMLToJSON(input);
       default:
         throw new Error(`Conversion from XML to ${to} is not supported.`);
     }

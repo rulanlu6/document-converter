@@ -23,7 +23,7 @@ export const xmlToObject = (xml: string): any => {
   let match: RegExpExecArray | null;
   while ((match = regex.exec(content)) !== null) {
     const mainTag = match[1];
-    const subTagRegex = /<(\w+)>(.*?)<\/\1>/gs; // To match subtags (values)
+    const subTagRegex = /<(\w+)>(.*?)<\/\1>/gs;
     const subtags: Subtags = {};
 
     let subMatch: RegExpExecArray | null;

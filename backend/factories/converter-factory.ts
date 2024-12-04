@@ -1,9 +1,19 @@
 import { StringConverter } from "../converters/string-converter";
 import { JSONConverter } from "../converters/json-conveter";
 import { XMLConverter } from "../converters/xml-conveter";
+import { BaseConverter } from "../converters/base-converter";
 
 export class ConverterFactory {
-  // General conversion method
+  private converterMap: Map<string, new () => BaseConverter> = new Map();
+
+  constructor() {
+    // Map file types to converter classes
+    this.converterMap.set("text/plain", StringConverter);
+    this.converterMap.set("application/json", JSONConverter);
+    this.converterMap.set("application/xml", XMLConverter);
+    this.converterMap.set("text/xml", XMLConverter);
+  }
+
   async getConverter(
     input: Express.Multer.File,
     from: string,
@@ -11,24 +21,14 @@ export class ConverterFactory {
     lineSeparator: string,
     elementSeparator: string
   ): Promise<string> {
-    let converter;
-    // Determine which class to instantiate based on 'from' type
-    switch (from) {
-      case "text/plain":
-        converter = new StringConverter();
-        break;
-      case "application/json":
-        converter = new JSONConverter();
-        break;
-      case "application/xml":
-      case "text/xml":
-        converter = new XMLConverter();
-        break;
-      // More cases can be added for other format conversions
-      default:
-        throw new Error(`Conversion from ${from} to ${to} is not supported.`);
+    // Check if we have a converter for the given 'from' format
+    const ConverterClass = this.converterMap.get(from);
+
+    if (!ConverterClass) {
+      throw new Error(`No converter found for format: ${from}`);
     }
 
+    const converter = new ConverterClass();
     return converter.convert(input, to, lineSeparator, elementSeparator);
   }
 }

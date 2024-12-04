@@ -6,9 +6,8 @@ const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     const lines = inputString.split(lineSeparator);
     const result = {};
     lines.forEach((line) => {
-        const parts = line
-            .split(elementSeparator)
-            .filter((line) => line.trim() !== "");
+        const parts = line.split(elementSeparator);
+        // .filter((line) => line.trim() !== "");
         const key = parts[0];
         const values = parts.slice(1);
         if (key) {
