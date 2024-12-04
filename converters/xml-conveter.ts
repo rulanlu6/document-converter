@@ -1,11 +1,32 @@
 import { BaseConverter } from "./base-converter";
-import { wrapObjectInArray } from "./helper";
+import {
+  wrapObjectInArray,
+  xmlToObject,
+  objectInsertSeparators,
+} from "./helper";
 import { parseStringPromise } from "xml2js";
 export class XMLConverter extends BaseConverter {
   // Method to convert XML to String
-  async convertXMLToString(input: Express.Multer.File): Promise<string> {
-    // Placeholder logic for converting XML to String
-    return `xml to string`;
+  async convertXMLToString(
+    input: Express.Multer.File,
+    lineSeparator: string,
+    elementSeparator: string
+  ): Promise<string> {
+    try {
+      const data = input.buffer.toString("utf8");
+
+      const object = xmlToObject(data);
+      const string = objectInsertSeparators(
+        object,
+        lineSeparator,
+        elementSeparator
+      );
+
+      return string;
+    } catch (err) {
+      console.error("Error converting XML to String:", err);
+      throw new Error("Invalid XML format");
+    }
   }
 
   // Method to convert XML to JSON
@@ -17,9 +38,9 @@ export class XMLConverter extends BaseConverter {
       });
 
       const root = Object.keys(object)[0]; // Remove the root tag
-      let json = wrapObjectInArray(object[root]);
+      let result = wrapObjectInArray(object[root]);
 
-      return JSON.stringify(json, null, 2);
+      return JSON.stringify(result, null, 2);
     } catch (error) {
       console.error("Error converting XML to JSON:", error);
       throw new Error("Invalid XML format");
@@ -35,7 +56,7 @@ export class XMLConverter extends BaseConverter {
   ): Promise<string> {
     switch (to) {
       case "text/plain":
-        return this.convertXMLToString(input); // Call the string conversion method
+        return this.convertXMLToString(input, lineSeparator, elementSeparator); // Call the string conversion method
       case "application/json":
         return this.convertXMLToJSON(input); // Call the JSON conversion method
       default:

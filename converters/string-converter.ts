@@ -29,7 +29,10 @@ export class StringConverter extends BaseConverter {
     try {
       const data = input.buffer.toString("utf8");
       const object = stringToObject(data, lineSeparator, elementSeparator);
-      const xml = `<root>\n${objectToXML(object, 1)}\n</root>`;
+      const xml = `<?xml version="1.0" encoding="UTF-8" ?>\n<root>\n${objectToXML(
+        object,
+        1
+      )}\n</root>`;
 
       return xml;
     } catch (err) {

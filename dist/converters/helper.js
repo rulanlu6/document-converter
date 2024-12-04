@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.jsonInsertSeparators = exports.wrapObjectInArray = exports.objectToXML = exports.stringToObject = void 0;
+exports.xmlToObject = exports.objectInsertSeparators = exports.wrapObjectInArray = exports.objectToXML = exports.stringToObject = void 0;
 const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     inputString = inputString.replace(/(\r\n|\n|\r)/gm, ""); // Remove line breaks
     const lines = inputString.split(lineSeparator);
@@ -64,9 +64,9 @@ const wrapObjectInArray = (obj) => {
     return obj;
 };
 exports.wrapObjectInArray = wrapObjectInArray;
-const jsonInsertSeparators = (json, lineSeparator, elementSeparator) => {
+const objectInsertSeparators = (object, lineSeparator, elementSeparator) => {
     const lines = [];
-    for (const [key, value] of Object.entries(json)) {
+    for (const [key, value] of Object.entries(object)) {
         // If the value is an array, process each object inside it as a line
         if (Array.isArray(value)) {
             value.forEach((item) => {
@@ -79,4 +79,36 @@ const jsonInsertSeparators = (json, lineSeparator, elementSeparator) => {
     }
     return lines.join(lineSeparator);
 };
-exports.jsonInsertSeparators = jsonInsertSeparators;
+exports.objectInsertSeparators = objectInsertSeparators;
+const xmlToObject = (xml) => {
+    const startTag = "<root>";
+    const endTag = "</root>";
+    const startIndex = xml.indexOf(startTag) + startTag.length;
+    const endIndex = xml.indexOf(endTag);
+    // Extract the content between the <root> and </root> tags (including the tags)
+    const content = xml.slice(startIndex, endIndex).replace(/[\r\n]+/g, "");
+    let object = {};
+    // Extract the main tag (key)
+    const regex = /<(\w+)>\s*(.*?)\s*<\/\1>/gs;
+    let match;
+    while ((match = regex.exec(content)) !== null) {
+        const mainTag = match[1];
+        const subTagRegex = /<(\w+)>(.*?)<\/\1>/gs; // To match subtags (values)
+        const subtags = {};
+        let subMatch;
+        while ((subMatch = subTagRegex.exec(match[2])) !== null) {
+            const subTag = subMatch[1];
+            const value = subMatch[2];
+            subtags[subTag] = value;
+        }
+        // Handle if a key has multiple values
+        if (object.hasOwnProperty(mainTag)) {
+            object[mainTag].push(subtags);
+        }
+        else {
+            object[mainTag] = [subtags];
+        }
+    }
+    return object;
+};
+exports.xmlToObject = xmlToObject;

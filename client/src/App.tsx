@@ -41,8 +41,9 @@ const App = () => {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
-          setConvertedData(response.data.result);
-          const blob = new Blob([response.data.result], {
+          const result = decodeHtmlEntities(response.data.result);
+          setConvertedData(result);
+          const blob = new Blob([result], {
             type: conversionType,
           });
 
@@ -57,6 +58,12 @@ const App = () => {
     } catch (error) {
       console.error("Error converting document:", error);
     }
+  };
+
+  const decodeHtmlEntities = (text: string) => {
+    let result = window.document.createElement("textarea");
+    result.innerHTML = text;
+    return result.value;
   };
 
   const triggerDownload = () => {
