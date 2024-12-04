@@ -15,7 +15,7 @@ class StringConverter extends base_converter_1.BaseConverter {
         }
         catch (err) {
             console.error("Error converting string to JSON:", err);
-            throw new Error("Invalid string format");
+            throw new Error("Error converting string to JSON");
         }
     }
     // Method to convert String to XML
@@ -28,18 +28,20 @@ class StringConverter extends base_converter_1.BaseConverter {
         }
         catch (err) {
             console.error("Error converting string to XML:", err);
-            throw new Error("Invalid string format");
+            throw new Error("Error converting string to XML");
         }
     }
     // Main conversion method, uses the appropriate method based on the 'to' type
     async convert(input, to, lineSeparator, elementSeparator) {
         switch (to) {
             case "application/json":
-                return this.convertStringToJSON(input, lineSeparator, elementSeparator); // Call the JSON conversion method
+                return this.convertStringToJSON(input, lineSeparator, elementSeparator);
             case "application/xml":
-                return this.convertStringToXML(input, lineSeparator, elementSeparator); // Call the XML conversion method
+                return this.convertStringToXML(input, lineSeparator, elementSeparator);
             default:
-                throw new Error(`Conversion from String to ${to} is not supported.`);
+                const error = new Error(`Conversion from String to ${to} is not supported.`);
+                error.name = "UnsupportedConversion";
+                throw error;
         }
     }
 }

@@ -19,7 +19,7 @@ export class XMLConverter extends BaseConverter {
       return string;
     } catch (err) {
       console.error("Error converting XML to String:", err);
-      throw new Error("Invalid XML format");
+      throw new Error("Error converting XML to String");
     }
   }
 
@@ -37,7 +37,7 @@ export class XMLConverter extends BaseConverter {
       return JSON.stringify(result, null, 2);
     } catch (error) {
       console.error("Error converting XML to JSON:", error);
-      throw new Error("Invalid XML format");
+      throw new Error("Error converting XML to JSON");
     }
   }
 
@@ -54,7 +54,11 @@ export class XMLConverter extends BaseConverter {
       case "application/json":
         return this.convertXMLToJSON(input);
       default:
-        throw new Error(`Conversion from XML to ${to} is not supported.`);
+        const error = new Error(
+          `Conversion from String to ${to} is not supported.`
+        );
+        error.name = "UnsupportedConversion";
+        throw error;
     }
   }
 }

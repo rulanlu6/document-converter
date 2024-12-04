@@ -14,7 +14,7 @@ const objectToXML = (object, depth = 0, rootKey = "") => {
         return Object.entries(object)
             .map(([key, value]) => {
             if (typeof value === "string") {
-                return `${indent}<${key}>${value}</${key}>`; // If value is string, return it directly
+                return `${indent}<${key}>${value}</${key}>`;
             }
             else {
                 return (0, exports.objectToXML)(value, depth, key);

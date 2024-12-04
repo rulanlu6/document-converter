@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "jsx": "preserve",
+    "target": "esnext",
     "module": "commonjs",
+    "jsx": "preserve",
     "allowJs": true,
     "outDir": "./dist",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

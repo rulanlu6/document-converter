@@ -17,7 +17,7 @@ class XMLConverter extends base_converter_1.BaseConverter {
         }
         catch (err) {
             console.error("Error converting XML to String:", err);
-            throw new Error("Invalid XML format");
+            throw new Error("Error converting XML to String");
         }
     }
     // Method to convert XML to JSON
@@ -33,18 +33,20 @@ class XMLConverter extends base_converter_1.BaseConverter {
         }
         catch (error) {
             console.error("Error converting XML to JSON:", error);
-            throw new Error("Invalid XML format");
+            throw new Error("Error converting XML to JSON");
         }
     }
     // Main conversion method, uses the appropriate method based on the 'to' type
     async convert(input, to, lineSeparator, elementSeparator) {
         switch (to) {
             case "text/plain":
-                return this.convertXMLToString(input, lineSeparator, elementSeparator); // Call the string conversion method
+                return this.convertXMLToString(input, lineSeparator, elementSeparator);
             case "application/json":
-                return this.convertXMLToJSON(input); // Call the JSON conversion method
+                return this.convertXMLToJSON(input);
             default:
-                throw new Error(`Conversion from XML to ${to} is not supported.`);
+                const error = new Error(`Conversion from String to ${to} is not supported.`);
+                error.name = "UnsupportedConversion";
+                throw error;
         }
     }
 }

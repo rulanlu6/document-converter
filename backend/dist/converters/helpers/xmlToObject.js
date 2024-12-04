@@ -14,7 +14,7 @@ const xmlToObject = (xml) => {
     let match;
     while ((match = regex.exec(content)) !== null) {
         const mainTag = match[1];
-        const subTagRegex = /<(\w+)>(.*?)<\/\1>/gs; // To match subtags (values)
+        const subTagRegex = /<(\w+)>(.*?)<\/\1>/gs;
         const subtags = {};
         let subMatch;
         while ((subMatch = subTagRegex.exec(match[2])) !== null) {

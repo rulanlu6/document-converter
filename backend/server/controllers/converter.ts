@@ -32,6 +32,12 @@ export const converterController = async (req: Request, res: Response) => {
       result: result,
     });
   } catch (error) {
+    if (error instanceof Error && error.name === "UnsupportedConversion") {
+      // Handle unsupported conversion error
+      return res.status(400).json({
+        error: error.message,
+      });
+    }
     res.status(500).json({
       error: "Something went wrong during the conversion",
     });

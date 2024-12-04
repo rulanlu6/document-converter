@@ -7,11 +7,10 @@ const stringToObject = (inputString, lineSeparator, elementSeparator) => {
     const result = {};
     lines.forEach((line) => {
         const parts = line.split(elementSeparator);
-        // .filter((line) => line.trim() !== "");
+        // .filter((line) => line.trim() !== ""); // Uncomment this line to trim empty strings
         const key = parts[0];
         const values = parts.slice(1);
         if (key) {
-            // If the key doesn't exist in the result object, initialize it as an empty array
             if (!result[key]) {
                 result[key] = [];
             }
