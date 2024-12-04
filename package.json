@@ -4,30 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start:backend": "node dist/server.js",
-    "start:frontend": "cd client && npm start",
+    "build": "cd backend && npx tsc",
+    "start:backend": "cd backend && node dist/server.js",
+    "start:frontend": "cd frontend && npm start",
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^22.10.1",
-    "@types/xml2js": "^0.4.14",
-    "concurrently": "^9.1.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
-  },
   "dependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/multer": "^1.4.12",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "express": "^4.21.1",
-    "multer": "^1.4.5-lts.1",
     "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/xml2js": "^0.4.14",
+    "concurrently": "^9.1.0"
   }
 }
