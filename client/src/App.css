@@ -32,12 +32,22 @@
   margin: 20px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+  }
+}
+
+.upload-container {
+  position: relative;
 }
 
 .upload-container,
 .result-container {
   width: 50%;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 }
 
 .file-container,
@@ -48,13 +58,31 @@
 
 .file-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  margin: 50px 0px;
 }
 
 .input-container {
   display: flex;
   flex-direction: column;
+}
+
+select {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  @media screen and (max-width: 900px) {
+    margin-bottom: 30px;
+  }
 }
 
 .button,
@@ -67,7 +95,7 @@ input::file-selector-button {
   padding: 0 16px;
   border-radius: 4px;
   color: #fff;
-  background: #5a8700;
+  background: #f32b09;
   line-height: 1.15;
   font-size: 14px;
   height: 36px;
@@ -78,27 +106,52 @@ input::file-selector-button {
   min-width: 64px;
   border: none;
   text-align: center;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button[disabled] {
-  background-color: #cccccc;
-  color: #666666;
+  cursor: default;
+  background-color: #e2e2e2;
+  color: #8c8c8c;
 }
 
-.upload-button {
-  margin-top: 20px;
-  width: 100%;
+.upload-button,
+.download-button {
+  margin-right: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.message {
+  font-size: small;
+  margin-top: 10px;
+  color: #9d2e1a;
+}
+
+.separator-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#line-separator,
+#element-separator {
+  width: 50px;
+  margin-left: 5px;
+}
+
+#line-separator {
+  margin-right: 30px;
 }
 
 .result-text {
   height: 500px;
-  margin: 10px;
   padding: 10px;
+  margin: 0;
   overflow-y: scroll;
-  background-color: #eeeeee;
+  border-radius: 0.5555555556vw;
+  background-color: #f5f5f5;
 }
 
 @keyframes App-logo-spin {
