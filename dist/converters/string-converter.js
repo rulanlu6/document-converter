@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringConverter = void 0;
 const base_converter_1 = require("./base-converter");
-const stringToObject_1 = require("../utils/stringToObject");
-const objectToXML_1 = require("../utils/objectToXML");
+const stringToObject_1 = require("./helpers/stringToObject");
+const objectToXML_1 = require("./helpers/objectToXML");
 class StringConverter extends base_converter_1.BaseConverter {
     // Method to convert String to JSON
     async convertStringToJSON(input, lineSeparator, elementSeparator) {

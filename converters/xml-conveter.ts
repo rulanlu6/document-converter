@@ -1,7 +1,7 @@
 import { BaseConverter } from "./base-converter";
-import { xmlToObject } from "../utils/xmlToObject";
-import { objectToString } from "../utils/objectToString";
-import { wrapObjectInArray } from "../utils/wrapObjectInArray";
+import { xmlToObject } from "./helpers/xmlToObject";
+import { objectToString } from "./helpers/objectToString";
+import { wrapObjectInArray } from "./helpers/wrapObjectInArray";
 import { parseStringPromise } from "xml2js";
 export class XMLConverter extends BaseConverter {
   // Method to convert XML to String

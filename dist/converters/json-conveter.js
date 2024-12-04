@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JSONConverter = void 0;
 const base_converter_1 = require("./base-converter");
-const objectToString_1 = require("../utils/objectToString");
+const objectToString_1 = require("./helpers/objectToString");
 const xml2js_1 = __importDefault(require("xml2js"));
 class JSONConverter extends base_converter_1.BaseConverter {
     // Method to convert JSON to String

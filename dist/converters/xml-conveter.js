@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XMLConverter = void 0;
 const base_converter_1 = require("./base-converter");
-const xmlToObject_1 = require("../utils/xmlToObject");
-const objectToString_1 = require("../utils/objectToString");
-const wrapObjectInArray_1 = require("../utils/wrapObjectInArray");
+const xmlToObject_1 = require("./helpers/xmlToObject");
+const objectToString_1 = require("./helpers/objectToString");
+const wrapObjectInArray_1 = require("./helpers/wrapObjectInArray");
 const xml2js_1 = require("xml2js");
 class XMLConverter extends base_converter_1.BaseConverter {
     // Method to convert XML to String

@@ -1,5 +1,5 @@
 import { BaseConverter } from "./base-converter";
-import { objectToString } from "../utils/objectToString";
+import { objectToString } from "./helpers/objectToString";
 import xml2js from "xml2js";
 export class JSONConverter extends BaseConverter {
   // Method to convert JSON to String
