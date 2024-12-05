@@ -160,13 +160,6 @@ const App = () => {
           >
             Upload and Convert
           </button>
-          {/* <button
-            className="download-button button"
-            onClick={triggerDownload}
-            disabled={!downloadLink}
-          >
-            Download File
-          </button> */}
         </div>
       </div>
       <div className="result-container">
