@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "npm run install:backend && npm run install:frontend",
+    "install": "npm run install:root && npm run install:backend && npm run install:frontend",
+    "install:root": "test ! -d node_modules && npm install || echo 'Root node_modules already installed'",
     "install:backend": "cd backend && npm install",
     "install:frontend": "cd frontend && npm install",
     "start:backend": "cd backend && npx tsc && node dist/server.js",
