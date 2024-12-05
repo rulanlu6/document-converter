@@ -30,8 +30,13 @@ Ensure that you have the following installed:
 
    ```bash
    git clone https://github.com/rulanlu6/document-converter.git
-   cd document-converter
    ```
+
+1. Go into the root folder
+
+```bash
+cd document-converter
+```
 
 2. Install dependencies for both the frontend and backend:
 
