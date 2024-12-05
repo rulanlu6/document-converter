@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
+import { RiDownloadLine } from "react-icons/ri";
 import "./App.css";
 
 const App = () => {
@@ -159,17 +160,26 @@ const App = () => {
           >
             Upload and Convert
           </button>
-          <button
+          {/* <button
             className="download-button button"
             onClick={triggerDownload}
             disabled={!downloadLink}
           >
             Download File
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="result-container">
-        <pre className="result-text">{convertedData}</pre>
+        <pre className="result-text">
+          {downloadLink && (
+            <RiDownloadLine
+              size={25}
+              className="download-button"
+              onClick={triggerDownload}
+            />
+          )}
+          {convertedData}
+        </pre>
       </div>
     </div>
   );

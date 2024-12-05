@@ -29,10 +29,14 @@
 }
 
 .root {
-  margin: 20px;
+  max-width: 1000px;
+  margin: 50px auto;
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  @media screen and (max-width: 1040px) {
+    margin: 50px 20px;
+  }
   @media screen and (max-width: 900px) {
     flex-direction: column;
   }
@@ -114,9 +118,11 @@ button[disabled] {
   color: #8c8c8c;
 }
 
-.upload-button,
 .download-button {
-  margin-right: 20px;
+  position: absolute;
+  right: 10px;
+  color: #f32b09;
+  cursor: pointer;
 }
 
 .disabled {
@@ -146,6 +152,7 @@ button[disabled] {
 }
 
 .result-text {
+  position: relative;
   height: 500px;
   padding: 10px;
   margin: 0;

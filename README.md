@@ -10,6 +10,7 @@ An API to convert documents between three different formats: plain text (string)
 - **Express**
 - **React**
 - **TypeScript**
+- **Jest**
 
 ---
 
@@ -75,8 +76,13 @@ npm start
 
 ## Testing
 
-Placeholder
+The following tools are used for API validation testing
+
+- **Jest**
+- **Supertest**
 
 ### To run tests:
 
-Placeholder
+```bash
+npm test
+```
