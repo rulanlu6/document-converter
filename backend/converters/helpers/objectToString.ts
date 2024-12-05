@@ -16,5 +16,5 @@ export const objectToString = (
     }
   }
 
-  return lines.join(lineSeparator);
+  return lines.join(lineSeparator + "\n") + lineSeparator;
 };

@@ -14,6 +14,6 @@ const objectToString = (object, lineSeparator, elementSeparator) => {
             });
         }
     }
-    return lines.join(lineSeparator);
+    return lines.join(lineSeparator + "\n") + lineSeparator;
 };
 exports.objectToString = objectToString;
