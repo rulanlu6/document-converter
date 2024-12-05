@@ -21,8 +21,8 @@ To run the project locally, follow the steps below.
 
 Ensure that you have the following installed:
 
-- **Node.js** (version 14.x or higher)
-- **npm** (Node package manager)
+- **Node.js**
+- **npm**
 
 ### Setup
 
@@ -46,6 +46,11 @@ Start both the frontend and backend:
 ```bash
 npm start
 ```
+
+The application will run on the following ports:
+
+- The frontend will run on http://localhost:3001
+- The backend will run on http://localhost:8000
 
 ---
 
