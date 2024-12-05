@@ -32,13 +32,13 @@ Ensure that you have the following installed:
    git clone https://github.com/rulanlu6/document-converter.git
    ```
 
-1. Go into the root folder
+2. Navigate to the root folder of the project
 
-```bash
-cd document-converter
-```
+   ```bash
+   cd document-converter
+   ```
 
-2. Install dependencies for both the frontend and backend:
+3. Install dependencies for both the frontend and backend:
 
    ```bash
    npm install
