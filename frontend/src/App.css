@@ -42,7 +42,8 @@
   }
 }
 
-.upload-container {
+.upload-container,
+.result-container {
   position: relative;
 }
 
@@ -78,6 +79,11 @@ select {
   box-sizing: border-box;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+.nothing-selected {
+  background-color: #e2e2e2;
+  color: #8c8c8c;
 }
 
 .button-container {
@@ -120,6 +126,7 @@ button[disabled] {
 
 .download-button {
   position: absolute;
+  top: 10px;
   right: 10px;
   color: #f32b09;
   cursor: pointer;
@@ -152,7 +159,6 @@ button[disabled] {
 }
 
 .result-text {
-  position: relative;
   height: 500px;
   padding: 10px;
   margin: 0;

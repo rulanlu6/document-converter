@@ -50,11 +50,6 @@ const App = () => {
 
           const url = URL.createObjectURL(blob);
           setDownloadLink(url);
-
-          // Reset selections
-          setConversionType("");
-          setLineSeparator("");
-          setElementSeparator("");
         });
     } catch (error) {
       console.error("Error converting document:", error);
@@ -86,7 +81,7 @@ const App = () => {
     <div className="root">
       <div className="upload-container">
         <h1>Document Converter</h1>
-        <p>Currently supports conversions between .txt, .json, and .xml</p>
+        <p>Supports conversions between .txt, .json, and .xml</p>
 
         <div className="document-container">
           <h4>Upload document:</h4>
@@ -103,7 +98,7 @@ const App = () => {
           <div>
             <h4>Conversion type:</h4>
             <select
-              id="conversionType"
+              id="conversion-type"
               className="type-dropdown button"
               value={conversionType}
               onChange={(e) => setConversionType(e.target.value)}
@@ -163,16 +158,14 @@ const App = () => {
         </div>
       </div>
       <div className="result-container">
-        <pre className="result-text">
-          {downloadLink && (
-            <RiDownloadLine
-              size={25}
-              className="download-button"
-              onClick={triggerDownload}
-            />
-          )}
-          {convertedData}
-        </pre>
+        {downloadLink && (
+          <RiDownloadLine
+            size={25}
+            className="download-button"
+            onClick={triggerDownload}
+          />
+        )}
+        <pre className="result-text">{convertedData}</pre>
       </div>
     </div>
   );

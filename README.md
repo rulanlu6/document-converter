@@ -10,7 +10,6 @@ An API to convert documents between three different formats: plain text (string)
 - **Express**
 - **React**
 - **TypeScript**
-- **Jest**
 
 ---
 
